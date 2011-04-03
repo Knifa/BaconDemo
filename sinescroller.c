@@ -82,14 +82,14 @@ void SineScroller_Draw() {
     // Loop through each horizontal strip of the text so we can
     // make them go in a sine wave.
     for (int i = 0; i < texture_width; i++) {
-        // Calculate the sin y offset.
+        // Calculate the sin value for this loop.
         float theta = i * SCROLLER_STRIP_SIZE / SCREEN_WIDTH * PI + angle;
         float sin_value = Utils_Sin(theta);
 
         // Get origin of shape.
         int x_offset = x_origin + (i*SCROLLER_STRIP_SIZE);
         int y_offset = (SCREEN_HEIGHT/2) +
-            (sin_value * texture_height * 4);
+            (sin_value * texture_height * 5.0f);
 
         // Get height (or rather, half of height) for the strip drawing.
         int height_offset = abs(
@@ -102,7 +102,7 @@ void SineScroller_Draw() {
 
         // Generate a colour also based off of the sin thingy.
         float color = (int)(((sin_value + 1) / 2) / 0.1) * 0.1f;
-        glColor4f(1.0f - color, color, 1.0f, 1.0f);
+        glColor4f(1.0f - color, color, 1.0f, 0.8f);
 
         // Draw the strip.
         glBegin(GL_QUADS);
@@ -131,7 +131,52 @@ void SineScroller_Draw() {
                     x_offset,
                     (y_offset + height_offset)
                     );
-            }
+        }
+        glEnd();
+    }
+
+    // Disable texturing.
+    glDisable(GL_TEXTURE_2D);
+
+    // Loop through the entire width of the screen. Draw a border.
+    for (int i = 0; i < SCREEN_WIDTH; i += 8)
+    {
+        // Calculate sin value for this loop.
+        float theta = 
+            i / 4.0f * SCROLLER_STRIP_SIZE / SCREEN_WIDTH * PI + angle;
+        float sin_value = Utils_Sin(theta);
+
+        // Get the colour and set it.
+        float color = (int)(((sin_value + 1) / 2) / 0.1) * 0.1f;
+        glColor4f(1.0f - color, color, 1.0f, 0.8f);
+
+        // Draw the border lines.
+        glBegin(GL_QUADS);
+        {
+            glVertex2f(i, 8);
+            glVertex2f(i+8, 8);
+            glVertex2f(i+8, 16);
+            glVertex2f(i, 16);
+
+            glVertex2f(i, SCREEN_HEIGHT-8);
+            glVertex2f(i+8, SCREEN_HEIGHT-8);
+            glVertex2f(i+8, SCREEN_HEIGHT-16);
+            glVertex2f(i, SCREEN_HEIGHT-16);
+
+            // Change colour to a more tarnsparent version, draw another
+            // line directly above and below.
+            glColor4f(1.0f - color, color, 1.0f, 0.33f);
+
+            glVertex2f(i, 16);
+            glVertex2f(i+8, 16);
+            glVertex2f(i+8, 24);
+            glVertex2f(i, 24);
+
+            glVertex2f(i, SCREEN_HEIGHT-16);
+            glVertex2f(i+8, SCREEN_HEIGHT-16);
+            glVertex2f(i+8, SCREEN_HEIGHT-24);
+            glVertex2f(i, SCREEN_HEIGHT-24);
+        }
         glEnd();
     }
 }

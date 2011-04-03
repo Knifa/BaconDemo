@@ -5,15 +5,11 @@
  * Created on 01 April 2011, 07:13
  */
 
-// Because fuck you.
-typedef int bool;
-#define true    1
-#define false   0
-
 // -----------------------------------------------------------------------------
 
 // Standard includes
 #include <stdio.h>
+#include <stdbool.h>
 
 // GL includes
 #include <GL/gl.h>
