@@ -52,6 +52,9 @@ else:
     # add additional compiler flags
     env.Append(CFLAGS = ['-g', '-O2', '-Wall', '-std=c99'])
 
+    # Add x11 libs to LIBPATH
+    env.Append(LIBPATH = ['/usr/x11R6/lib'])
+
     # add additional libraries to link against
     env.Append(LIBS = ['SDL_image', 'SDL_ttf', 'SDL_mixer', 'GL'])
 
