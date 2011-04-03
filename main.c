@@ -5,15 +5,11 @@
  * Created on 01 April 2011, 07:13
  */
 
-// Because fuck you.
-typedef int bool;
-#define true    1
-#define false   0
-
 // -----------------------------------------------------------------------------
 
 // Standard includes
 #include <stdio.h>
+#include <stdbool.h>
 
 // SDL includes
 #include <SDL/SDL.h>
@@ -72,7 +68,7 @@ void Init() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Init audio.
-    // Sound_Init();
+    Sound_Init();
     
     // Initalize the star field.
     Stars_Init();

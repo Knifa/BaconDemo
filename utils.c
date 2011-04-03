@@ -21,11 +21,8 @@ float Utils_Sin(float theta) {
     // Check if the table is ready
     if (sin_ready == 0) {
         // Make the table
-        for (int i = 0; i < LOOKUP_SIZE; i++) {
+        for (int i = 0; i < LOOKUP_SIZE; i++)
             sin_table[i] = sinf((i / (float)LOOKUP_SIZE) * PI * 2);
-
-            printf("%d %f\n", i, sin_table[i]);
-        }
 
         // Function is ready
         sin_ready = 1;
