@@ -1,3 +1,5 @@
+# vim: set ft=python:
+
 import sys,os
 
 def CheckSDLLib(context):
@@ -36,7 +38,7 @@ if sys.platform == "win32":
     env.Append(LIBPATH = env['ENV']['LIB'])
 
     # Additional Libraries
-    env.Append(LIBS = ['SDL', 'SDLmain', 'SDL_image', 'SDL_ttf', 'SDL_mixer'])
+    env.Append(LIBS = ['SDL', 'SDLmain', 'SDL_image', 'SDL_ttf', 'SDL_mixer', 'GL'])
 
 else:
     # compiler and linker flags for SDL
