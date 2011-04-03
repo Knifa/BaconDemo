@@ -15,12 +15,12 @@ typedef int bool;
 // Standard includes
 #include <stdio.h>
 
-// SDL includes
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
-
 // GL includes
 #include <GL/gl.h>
+
+// SDL includes
+#include "SDL.h"
+#include "SDL_mixer.h"
 
 // Bacon Demo includes
 #include "defs.h"
@@ -72,7 +72,7 @@ void Init() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Init audio.
-    // Sound_Init();
+    Sound_Init();
     
     // Initalize the star field.
     Stars_Init();
