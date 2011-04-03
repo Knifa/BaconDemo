@@ -12,7 +12,11 @@
 #include <stdbool.h>
 
 // GL includes
+#if defined(__APPLE__)&& defined(__MACH__)
+#include <OpenGL/gl.h>
+#else
 #include <GL/gl.h>
+#endif
 
 // SDL includes
 #include "SDL.h"

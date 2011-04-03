@@ -6,8 +6,13 @@
 #include <SDL/SDL_ttf.h>
 
 // GL includes
+#if defined(__APPLE__)&& defined(__MACH__)
+#include <OpenGL/gl.h>
+#include <OpenGL/glext.h>
+#else
 #include <GL/gl.h>
 #include <GL/glext.h>
+#endif
 
 // Bacon includes
 #include "defs.h"
