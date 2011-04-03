@@ -15,8 +15,8 @@ extern "C" {
 // -----------------------------------------------------------------------------
 
 // Screen Dimensions
-#define SCREEN_WIDTH        800
-#define SCREEN_HEIGHT       480
+#define SCREEN_WIDTH        1280
+#define SCREEN_HEIGHT       720
 
 // -----------------------------------------------------------------------------
 
