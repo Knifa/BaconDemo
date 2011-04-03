@@ -27,6 +27,8 @@ typedef int bool;
 #include "stars.h"
 #include "sinescroller.h"
 #include "sound.h"
+#include "timeslice.h"
+
 
 // ----------------------------------------------------------------------------
 
@@ -83,6 +85,10 @@ void Init() {
 
 void Run() {
     bool isRunning = true;
+    timeslice s_ticks; // timeslice tick delta counter structure
+    
+    timeslice_init(&s_ticks); // initialize struct values
+    timeslice_start(&s_ticks); // Start the timer
 
     // Loop untl something tells us to gtfo.
     while (isRunning) {
@@ -97,18 +103,24 @@ void Run() {
             }
         }
 
-        Stars_Update();
-        Stars_Draw();
-
-        SineScroller_Update();
-        SineScroller_Draw();
+        // Store timeslice tick delta value
+        int tdelta = timeslice_get_ticks(&s_ticks);
         
+        // Update positions
+        Stars_Update(tdelta);
+        SineScroller_Update(tdelta);
+
+        // Draw items
+        Stars_Draw();
+        SineScroller_Draw();
+
+        // Reset timeslice tick delta counter
+        timeslice_start(&s_ticks);
+
         // Swap back and front buffer and clear front buffer.
         SDL_GL_SwapBuffers();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        // Delay makes it 60fps ish.
-        SDL_Delay((int)(1.0f/60.0f));
     }
 }
 

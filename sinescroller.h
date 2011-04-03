@@ -24,7 +24,7 @@ extern "C" {
 
 void SineScroller_Init();
 void SineScroller_Draw();
-void SineScroller_Update();
+void SineScroller_Update(double tdelta);
 
 // -----------------------------------------------------------------------------
     

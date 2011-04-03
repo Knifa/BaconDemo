@@ -62,16 +62,16 @@ void SineScroller_Init() {
     texture_height = surface->h;
 }
 
-void SineScroller_Update() {
+void SineScroller_Update(double tdelta) {
     // Move the text along.
-    x_origin -= SCROLLER_SPEED;
+    x_origin -= SCROLLER_SPEED * (tdelta / 1000.f);
 
     // Wrap around the screen.
     if (x_origin < -(texture_width*SCROLLER_STRIP_SIZE))
         x_origin = SCREEN_WIDTH;
 
     // Increase angle
-    angle = fmod(angle + 0.02f, 2 * PI);
+    angle = fmod(angle + 0.02f, 2 * PI) * (tdelta / 1000.f);
 }
 
 void SineScroller_Draw() {

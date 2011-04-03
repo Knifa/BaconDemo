@@ -67,7 +67,7 @@ void Stars_Draw() {
     }
 }
 
-void Stars_Update() {
+void Stars_Update(double tdelta) {
     // Update the xvelocity and increase the angle.
     stars_xVel = Utils_Sin(stars_angle)*STARS_SPEED;
     stars_angle = fmod(stars_angle + 0.004f, 2 * PI);
@@ -77,8 +77,8 @@ void Stars_Update() {
         Star* s = &stars[i];
 
         // Move the stars according to Z value.
-        s->x -= (stars_xVel / s->z);
-        s->y -= (STARS_SPEED / s->z);
+        s->x -= (stars_xVel / s->z) * (tdelta / 1000.f);
+        s->y -= (STARS_SPEED / s->z) * (tdelta / 1000.f);
 
         // Make sure we wrap around the screen.
         if (s->x > SCREEN_WIDTH)

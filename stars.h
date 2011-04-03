@@ -31,7 +31,7 @@ typedef struct {
 // Starfield functions.
 void Stars_Init();
 void Stars_Draw();
-void Stars_Update();
+void Stars_Update(double tdelta);
 
 // -----------------------------------------------------------------------------
 
