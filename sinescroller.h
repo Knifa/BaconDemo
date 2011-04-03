@@ -17,7 +17,7 @@ extern "C" {
 #define SCROLLER_FONT          "font.ttf"
 #define SCROLLER_FONT_SIZE     20
 #define SCROLLER_SPEED         4.0f
-#define SCROLLER_TEXT          "hello glasnost      sdl is pretty kawaii      internet dance party!     what else do they say in these things?      rave bacon!     code: knifa     code: mr_daemon     music: knifa"
+#define SCROLLER_TEXT          "hello glasnost      sdl is pretty kawaii      internet dance party!     what else do they say in these things?      rave bacon!     code:knifa     code:mr_daemon     music:knifa"
 #define SCROLLER_STRIP_SIZE    8.0f
 
 // -----------------------------------------------------------------------------
