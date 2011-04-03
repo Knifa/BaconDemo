@@ -104,7 +104,7 @@ void Run() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         // Delay makes it 60fps ish.
-        SDL_Delay((int)(1.0f/60.0f));
+        SDL_Delay(1.0f/60.0f*1000.0f);
     }
 }
 
