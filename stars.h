@@ -19,7 +19,7 @@ extern "C" {
 #define STARS_MAX_DEPTH     16
 #define STARS_DEPTH_POW     1.4f
 #define STARS_SIZE          4.0f
-#define STARS_SPEED         4.0f
+#define STARS_SPEED         300.0f 
 
 // -----------------------------------------------------------------------------
 

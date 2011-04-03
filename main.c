@@ -106,12 +106,13 @@ void Run() {
         Stars_Update(tdelta);
         SineScroller_Update(tdelta);
 
+        // Reset timeslice tick delta counter
+        printf("delta: %d\n", tdelta);
+        timeslice_start(&s_ticks);
+        
         // Draw items
         Stars_Draw();
         SineScroller_Draw();
-
-        // Reset timeslice tick delta counter
-        timeslice_start(&s_ticks);
 
         // Swap back and front buffer and clear front buffer.
         SDL_GL_SwapBuffers();

@@ -69,7 +69,7 @@ void Stars_Draw() {
 
 void Stars_Update(double tdelta) {
     // Update the xvelocity and increase the angle.
-    stars_xVel = Utils_Sin(stars_angle)*STARS_SPEED;
+    stars_xVel = (Utils_Sin(stars_angle) * STARS_SPEED) * (tdelta / 1000.f);
     stars_angle = fmod(stars_angle + 0.004f, 2 * PI);
 
     // Loop through all of the stars

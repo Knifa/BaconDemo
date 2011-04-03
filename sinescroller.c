@@ -71,7 +71,7 @@ void SineScroller_Update(double tdelta) {
         x_origin = SCREEN_WIDTH;
 
     // Increase angle
-    angle = fmod(angle + 0.02f, 2 * PI) * (tdelta / 1000.f);
+    angle = fmod(angle + 0.02f, 2 * PI);
 }
 
 void SineScroller_Draw() {
