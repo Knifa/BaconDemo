@@ -111,7 +111,7 @@ void Run() {
         SineScroller_Update(tdelta);
 
         // Reset timeslice tick delta counter
-        printf("delta: %d\n", tdelta);
+        //printf("delta: %d\n", tdelta);
         timeslice_start(&s_ticks);
         
         // Draw items
