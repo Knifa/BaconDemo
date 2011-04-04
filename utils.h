@@ -18,12 +18,17 @@ extern "C" {
 
 // -----------------------------------------------------------------------------
 
-#define LOOKUP_SIZE     512
+#define UTILS_SNAP      4
+#define UTILS_LOOKUP_SIZE     512
     
 // -----------------------------------------------------------------------------
 
 float Utils_Random(float min, float max);
 float Utils_Sin(float theta);
+
+int Utils_Snap(float i, int snap_size);
+int Utils_Snap(float i);
+
 
 // -----------------------------------------------------------------------------
 
