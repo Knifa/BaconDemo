@@ -2,8 +2,8 @@
 #include <math.h>
 
 // SDL includes
-#include <SDL/SDL.h>
-#include <SDL/SDL_ttf.h>
+#include "SDL.h"
+#include "SDL_ttf.h"
 
 // GL includes
 #if defined(__APPLE__)&& defined(__MACH__)

@@ -1,5 +1,5 @@
 // SDL Includes
-#include <SDL/SDL_mixer.h>
+#include "SDL_mixer.h"
 
 // Bacon Includes
 #include "sound.h"
