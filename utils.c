@@ -33,7 +33,7 @@ float Utils_Sin(float theta) {
     return sin_table[index];
 }
 
-int Utils_Snap(float i, int snap_size) {
-    return (int)(i / snap_size) * snap_size;
+// For low-res effect
+int Utils_Snap(float i) {
+    return (int)(i / UTILS_SNAP) * UTILS_SNAP;
 }
-int Utils_Snap(float i) { return Utils_Snap(i, UTILS_SNAP); }

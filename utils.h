@@ -26,7 +26,6 @@ extern "C" {
 float Utils_Random(float min, float max);
 float Utils_Sin(float theta);
 
-int Utils_Snap(float i, int snap_size);
 int Utils_Snap(float i);
 
 
