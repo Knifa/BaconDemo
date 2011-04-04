@@ -30,8 +30,8 @@ void Stars_Init() {
         Star* s = &stars[i];
 
         // Generate a random position for our stars. Snap X, Y to nearest 4.
-        s->x = (int)(Utils_Random(0, SCREEN_WIDTH) / 4) * 4;
-        s->y = (int)(Utils_Random(0, SCREEN_HEIGHT) / 4) * 4;
+        s->x = Utils_Snap(Utils_Random(0, SCREEN_WIDTH));
+        s->y = Utils_Snap(Utils_Random(0, SCREEN_HEIGHT));
         s->z = Utils_Random(1, STARS_MAX_DEPTH);
     }
 }
@@ -55,8 +55,8 @@ void Stars_Draw() {
             size = 1;
 
         // Low-res effect
-        int x = (int)(s->x / 4) * 4;
-        int y = (int)(s->y / 4) * 4;
+        int x = Utils_Snap(s->x);
+        int y = Utils_Snap(s->y);
 
         // Draw the actual star.
         glBegin(GL_QUADS);
@@ -72,8 +72,8 @@ void Stars_Draw() {
 
 void Stars_Update(double tdelta) {
     // Update the xvelocity and increase the angle.
-    stars_xVel = (Utils_Sin(stars_angle) * STARS_SPEED) * (tdelta / 1000.f);
-    stars_angle = fmod(stars_angle + 0.004f, 2 * PI);
+    stars_xVel = (Utils_Sin(stars_angle) * STARS_SPEED);
+    stars_angle = fmod(stars_angle + 0.5f * (tdelta / 1000.f), 2 * PI);
 
     // Loop through all of the stars
     for (int i = 0; i < STARS_MAX; i++) {
