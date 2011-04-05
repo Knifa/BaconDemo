@@ -9,7 +9,13 @@
 
 // Standard includes
 #include <stdio.h>
+
+#ifdef MSVC
+#include <windows.h>
+#include "compat/stdbool.h"
+#else
 #include <stdbool.h>
+#endif
 
 // GL includes
 #if defined(__APPLE__)&& defined(__MACH__)
@@ -85,6 +91,8 @@ void Init() {
 
 void Run() {
     bool isRunning = true;
+    double tdelta; // time delta value
+
     timeslice s_ticks; // timeslice tick delta counter structure
     
     timeslice_init(&s_ticks); // initialize struct values
@@ -104,7 +112,7 @@ void Run() {
         }
 
         // Store timeslice tick delta value
-        int tdelta = timeslice_get_ticks(&s_ticks);
+        tdelta = timeslice_get_ticks(&s_ticks);
         
         // Update positions
         Stars_Update(tdelta);

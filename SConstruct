@@ -32,13 +32,14 @@ conf = Configure(env, custom_tests = {
 if sys.platform == "win32":
     print "Building for Windows."
     env.Tool('msvc')
-    env.Append(CFLAGS = ["/MD", "/Ox"])
-    env.Append(LINKFLAGS = ["/subsystem:console"])
+    env.Append(CFLAGS = ["/MD", "/Ox", "/DMSVC"])
+    env.Append(LINKFLAGS = ["/subsystem:windows"])
+
     env.Append(CPPPATH = env['ENV']['INCLUDE'])
     env.Append(LIBPATH = env['ENV']['LIB'])
 
     # Additional Libraries
-    env.Append(LIBS = ['SDL', 'SDLmain', 'SDL_image', 'SDL_ttf', 'SDL_mixer', 'GL'])
+    env.Append(LIBS = ['SDL', 'SDLmain', 'SDL_image', 'SDL_ttf', 'SDL_mixer', 'opengl32'])
 
 else:
     # compiler and linker flags for SDL

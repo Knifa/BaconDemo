@@ -3,7 +3,12 @@
 
 // SDL includes
 #include "SDL.h"
+
 // GL includes
+#ifdef MSVC
+#include <windows.h>
+#endif
+
 #if defined(__APPLE__)&& defined(__MACH__)
 #include <OpenGL/gl.h>
 #else
