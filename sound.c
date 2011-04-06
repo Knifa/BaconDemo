@@ -4,6 +4,8 @@
 // Bacon Includes
 #include "sound.h"
 
+Mix_Music* music;
+
 // -----------------------------------------------------------------------------
 
 void Sound_Init() {
@@ -12,7 +14,7 @@ void Sound_Init() {
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
     // Load the audio file.
-    Mix_Music* music = Mix_LoadMUS(AUDIO_FILE);
+    music = Mix_LoadMUS(AUDIO_FILE);
 
     // Play it forever!
     Mix_PlayMusic(music, -1);
