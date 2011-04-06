@@ -11,20 +11,24 @@
 #include "SDL_ttf.h"
 
 // GL includes
+// TODO: Cleanup this mess with either platform specific headers, or
+//       with a proper config.h header that defines what we need. Urgh.
 
-// Mac OS X vs The World
+// Mac OS X and win32-msvc vs The World
 #if defined(__APPLE__)&& defined(__MACH__)
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
+    #include <OpenGL/gl.h>
 #else
-#include <GL/gl.h>
+    #include <GL/gl.h>
 #endif
 
-// Windows vs The World part II
 #ifdef MSVC
-#include "compat/glext.h"
+    #include "compat/glext.h"
 #else
-#include <GL/glext.h>
+    #if defined(__APPLE__)&& defined(__MACH__)
+        #include <OpenGL/glext.h>
+    #else
+        #include <GL/glext.h>
+    #endif
 #endif
 
 // Bacon includes
