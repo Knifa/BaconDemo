@@ -18,10 +18,13 @@ float Utils_Random(float min, float max) {
 }
 
 float Utils_Sin(float theta) {
+    int i;
+    int index;
+
     // Check if the table is ready
     if (sin_ready == 0) {
         // Make the table
-        for (int i = 0; i < UTILS_LOOKUP_SIZE; i++)
+        for (i = 0; i < UTILS_LOOKUP_SIZE; i++)
             sin_table[i] = sinf((i / (float)UTILS_LOOKUP_SIZE) * PI * 2);
 
         // Function is ready
@@ -29,7 +32,7 @@ float Utils_Sin(float theta) {
     }
 
     // Calculate index and return.
-    int index = abs((int)(UTILS_LOOKUP_SIZE * fmod(theta, PI) / PI));
+    index = abs((int)(UTILS_LOOKUP_SIZE * fmod(theta, PI) / PI));
     return sin_table[index];
 }
 

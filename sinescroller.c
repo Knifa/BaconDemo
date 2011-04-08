@@ -1,17 +1,34 @@
 // Standard inclludes
+#include <stdio.h>
 #include <math.h>
+
+#ifdef MSVC
+#include <windows.h>
+#endif
 
 // SDL includes
 #include "SDL.h"
 #include "SDL_ttf.h"
 
 // GL includes
+// TODO: Cleanup this mess with either platform specific headers, or
+//       with a proper config.h header that defines what we need. Urgh.
+
+// Mac OS X and win32-msvc vs The World
 #if defined(__APPLE__)&& defined(__MACH__)
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
+    #include <OpenGL/gl.h>
 #else
-#include <GL/gl.h>
-#include <GL/glext.h>
+    #include <GL/gl.h>
+#endif
+
+#ifdef MSVC
+    #include "compat/glext.h"
+#else
+    #if defined(__APPLE__)&& defined(__MACH__)
+        #include <OpenGL/glext.h>
+    #else
+        #include <GL/glext.h>
+    #endif
 #endif
 
 // Bacon includes
@@ -23,6 +40,7 @@
 
 // The OpenGL texture number.
 GLuint texture;
+
 
 // Dimensions of the scroller
 int texture_width = 0;
@@ -38,12 +56,17 @@ float angle = 0;
 
 void SineScroller_Init() {
     // Initialise the TTF lib
+    // SDL / SDL_ttf structures
+    SDL_Surface* surface;
+    SDL_Color color = {255, 255, 255}; 
+    TTF_Font* font;
+
+    // Init the TTF lib
     TTF_Init();
-    TTF_Font* font = TTF_OpenFont(SCROLLER_FONT, SCROLLER_FONT_SIZE);
+    font = TTF_OpenFont(SCROLLER_FONT, SCROLLER_FONT_SIZE);
 
     // Render the text surface.
-    SDL_Color color = {255, 255, 255};
-    SDL_Surface* surface = TTF_RenderText_Blended(font, SCROLLER_TEXT, color);
+    surface = TTF_RenderText_Blended(font, SCROLLER_TEXT, color);
     
     // Generate an OpenGL texture for us.
     glGenTextures(1, &texture);
@@ -80,30 +103,40 @@ void SineScroller_Update(double tdelta) {
 }
 
 void SineScroller_Draw() {
+    int i;
+
+    // Shape values
+    float theta;
+    float sin_value;
+    int x_offset;
+    int y_offset;
+    int height_offset;
+    float color; // FIXME: Ambiguous because SDL_color structure
+
     // Enable texturing, and set our texture to the font.
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture);
 
     // Loop through each horizontal strip of the text so we can
     // make them go in a sine wave.
-    for (int i = 0; i < texture_width; i++) {
+    for (i = 0; i < texture_width; i++) {
         // Calculate the sin value for this loop.
-        float theta = i * SCROLLER_STRIP_SIZE / SCREEN_WIDTH * PI + angle;
-        float sin_value = Utils_Sin(theta);
+        theta = i * SCROLLER_STRIP_SIZE / SCREEN_WIDTH * PI + angle;
+        sin_value = Utils_Sin(theta);
 
         // Get origin of shape. Apply low-res effect.
-        int x_offset = Utils_Snap(x_origin + (i*SCROLLER_STRIP_SIZE));
-        int y_offset = Utils_Snap((SCREEN_HEIGHT/2) +
+        x_offset = Utils_Snap(x_origin + (i*SCROLLER_STRIP_SIZE));
+        y_offset = Utils_Snap((SCREEN_HEIGHT/2) +
             (sin_value * texture_height * 5.0f));
 
         // Get height (or rather, half of height) for the strip drawing.
-        int height_offset = abs(
+        height_offset = abs(
             (texture_height * SCROLLER_STRIP_SIZE / 2.0f) *
             ((Utils_Sin((sin_value*PI)/2)+1) / 2));
 
         // Generate a colour also based off of the sin thing.
-        float color = roundf(((sin_value + 1) / 2) / 0.1) * 0.1f;
-
+        color = roundf(((sin_value + 1) / 2) / 0.1) * 0.1f;
+       
         // Only draw what we can see.
         if (x_offset >= 0 && x_offset <= SCREEN_WIDTH)
         {
@@ -149,15 +182,15 @@ void SineScroller_Draw() {
     glDisable(GL_TEXTURE_2D);
 
     // Loop through the entire width of the screen. Draw a border.
-    for (int i = 0; i < SCREEN_WIDTH; i += SCROLLER_STRIP_SIZE)
+    for (i = 0; i < SCREEN_WIDTH; i += SCROLLER_STRIP_SIZE)
     {
         // Calculate sin value for this loop.
-        float theta = 
+        theta = 
             i / 4.0f * SCROLLER_STRIP_SIZE / SCREEN_WIDTH * PI + angle;
-        float sin_value = Utils_Sin(theta);
+        sin_value = Utils_Sin(theta);
 
         // Get the colour
-        float color = roundf(((sin_value + 1) / 2) / 0.1) * 0.1f;
+        color = roundf(((sin_value + 1) / 2) / 0.1) * 0.1f;
 
         // Draw the border lines.
         glBegin(GL_QUADS);

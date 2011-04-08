@@ -5,6 +5,10 @@
 #include "SDL.h"
 
 // GL includes
+#ifdef MSVC
+#include <windows.h>
+#endif
+
 #if defined(__APPLE__)&& defined(__MACH__)
 #include <OpenGL/gl.h>
 #else
@@ -27,7 +31,8 @@ float stars_angle = 0.0f;
 // -----------------------------------------------------------------------------
 
 void Stars_Init() {
-    for (int i = 0; i < STARS_MAX; i++) {
+    int i;
+    for (i = 0; i < STARS_MAX; i++) {
         Star* s = &stars[i];
 
         // Generate a random position for our stars. Snap X, Y to nearest 4.
@@ -38,11 +43,18 @@ void Stars_Init() {
 }
 
 void Stars_Draw() {
+    int i;
+
+    // star values
+    int x;
+    int y; 
+    float size;
+
     // Disable textures to make sure we aren't randomly given a texture.
     glDisable(GL_TEXTURE_2D);
 
     // Loop through ze stars and stuff, yo.
-    for (int i = 0; i < STARS_MAX; i++) {
+    for (i = 0; i < STARS_MAX; i++) {
         Star* s = &stars[i];
 
         // Change the colour depending on the Z distance.
@@ -51,13 +63,13 @@ void Stars_Draw() {
             1.0f/powf(s->z, STARS_DEPTH_POW));
 
         // Calculate the size of the star.
-        float size = STARS_SIZE / powf(s->z, STARS_DEPTH_POW);
+        size = STARS_SIZE / powf(s->z, STARS_DEPTH_POW);
         if (size < 1)
             size = 1;
 
         // Low-res effect
-        int x = Utils_Snap(s->x);
-        int y = Utils_Snap(s->y);
+        x = Utils_Snap(s->x);
+        y = Utils_Snap(s->y);
 
         // Draw the actual star.
         glBegin(GL_QUADS);
@@ -72,14 +84,17 @@ void Stars_Draw() {
 }
 
 void Stars_Update(double tdelta) {
-    // Update the angle.
+    int i;
+
+    // Update the xvelocity and increase the angle.
+    stars_xVel = (Utils_Sin(stars_angle) * STARS_SPEED);
     stars_angle = fmod(stars_angle + 0.5f * (tdelta / 1000.f), 2 * PI);
     
     // Update the X velocity.
     stars_xVel = (Utils_Sin(stars_angle) * STARS_SPEED);
 
     // Loop through all of the stars
-    for (int i = 0; i < STARS_MAX; i++) {
+    for (i = 0; i < STARS_MAX; i++) {
         Star* s = &stars[i];
 
         // Move the stars according to Z value.
