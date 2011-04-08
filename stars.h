@@ -28,6 +28,8 @@ typedef struct {
     float x, y, z;
 } Star;
 
+// -----------------------------------------------------------------------------
+
 // Starfield functions.
 void Stars_Init();
 void Stars_Draw();

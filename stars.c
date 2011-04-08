@@ -3,6 +3,7 @@
 
 // SDL includes
 #include "SDL.h"
+
 // GL includes
 #if defined(__APPLE__)&& defined(__MACH__)
 #include <OpenGL/gl.h>
@@ -71,9 +72,11 @@ void Stars_Draw() {
 }
 
 void Stars_Update(double tdelta) {
-    // Update the xvelocity and increase the angle.
-    stars_xVel = (Utils_Sin(stars_angle) * STARS_SPEED);
+    // Update the angle.
     stars_angle = fmod(stars_angle + 0.5f * (tdelta / 1000.f), 2 * PI);
+    
+    // Update the X velocity.
+    stars_xVel = (Utils_Sin(stars_angle) * STARS_SPEED);
 
     // Loop through all of the stars
     for (int i = 0; i < STARS_MAX; i++) {
