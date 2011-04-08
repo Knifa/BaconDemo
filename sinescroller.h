@@ -21,12 +21,6 @@ extern "C" {
 #define SCROLLER_STRIP_SIZE    8.0f
 
 // -----------------------------------------------------------------------------
-
-typedef struct {
-    float y;
-} SinesScrollerSlice;
-
-// -----------------------------------------------------------------------------
     
 void SineScroller_Init();
 void SineScroller_Draw();
