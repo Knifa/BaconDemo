@@ -22,6 +22,12 @@ extern "C" {
 
 // -----------------------------------------------------------------------------
 
+typedef struct {
+    float y;
+} SinesScrollerSlice;
+
+// -----------------------------------------------------------------------------
+    
 void SineScroller_Init();
 void SineScroller_Draw();
 void SineScroller_Update(double tdelta);
