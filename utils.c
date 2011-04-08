@@ -35,5 +35,5 @@ float Utils_Sin(float theta) {
 
 // For low-res effect
 int Utils_Snap(float i) {
-    return (int)(i / UTILS_SNAP) * UTILS_SNAP;
+    return roundf(i / UTILS_SNAP) * UTILS_SNAP;
 }
